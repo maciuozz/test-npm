@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  sonarcloud: sonarsource/sonarcloud@2.0.0
+  
 jobs:
   test:
     working_directory: ~/repo
@@ -34,7 +37,10 @@ jobs:
       - store_test_results:
           path: test-results.xml
 
+      - sonarcloud/scan
+
 workflows:
   test-wf:
     jobs:
-      - test 
+      - test:
+          context: SonarCloud
