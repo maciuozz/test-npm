@@ -75,7 +75,15 @@ workflows:
     jobs:
       - test:
           context: SonarCloud
+          filters:
+            tags:
+              only: /^v.*/
       - deploy:
           context: SonarCloud
           requires:
             - test
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
